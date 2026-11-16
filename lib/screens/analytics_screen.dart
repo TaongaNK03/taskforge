@@ -45,7 +45,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
 
     return Scaffold(
       backgroundColor:
-          isDark ? const Color(0xFF090D16) : const Color(0xFFF8FAFC),
+          isDark ? const Color(0xFF10141D) : const Color(0xFFF5F6F8),
       body: _isLoading
           ? Center(
               child: Column(
@@ -57,8 +57,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                     child: CircularProgressIndicator(
                       strokeWidth: 3,
                       valueColor: const AlwaysStoppedAnimation(
-                          Color(0xFF3B82F6)),
-                      backgroundColor: const Color(0xFF3B82F6)
+                          Color(0xFF3559C7)),
+                      backgroundColor: const Color(0xFF3559C7)
                           .withValues(alpha: 0.15),
                     ),
                   ),
@@ -76,7 +76,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             )
           : RefreshIndicator(
               onRefresh: _loadStats,
-              color: const Color(0xFF3B82F6),
+              color: const Color(0xFF3559C7),
               child: CustomScrollView(
                 physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics(),
@@ -91,11 +91,11 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                           colors: isDark
                               ? [
                                   const Color(0xFF0D2137),
-                                  const Color(0xFF090D16)
+                                  const Color(0xFF10141D)
                                 ]
                               : [
                                   const Color(0xFF0EA5E9),
-                                  const Color(0xFF3B82F6)
+                                  const Color(0xFF3559C7)
                                 ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -117,7 +117,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                       gradient: const LinearGradient(
                                         colors: [
                                           Color(0xFF0EA5E9),
-                                          Color(0xFF3B82F6)
+                                          Color(0xFF3559C7)
                                         ],
                                       ),
                                       borderRadius:
@@ -263,7 +263,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                               Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFF3B82F6)
+                                  color: const Color(0xFF3559C7)
                                       .withValues(
                                           alpha: isDark ? 0.15 : 0.1),
                                   borderRadius:
@@ -273,7 +273,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                     size: 20,
                                     color: isDark
                                         ? const Color(0xFF60A5FA)
-                                        : const Color(0xFF2563EB)),
+                                        : const Color(0xFF3559C7)),
                               ),
                               const SizedBox(width: 12),
                               Column(
@@ -288,7 +288,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                       letterSpacing: -0.3,
                                       color: isDark
                                           ? Colors.white
-                                          : const Color(0xFF0F172A),
+                                          : const Color(0xFF18202E),
                                     ),
                                   ),
                                   Text(
@@ -466,7 +466,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                                       .withValues(
                                                           alpha: 0.08)
                                                   : const Color(
-                                                      0xFFE2E8F0),
+                                                      0xFFE5E8EE),
                                               width: 18,
                                               borderRadius:
                                                   const BorderRadius
@@ -480,7 +480,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                               gradient:
                                                   const LinearGradient(
                                                 colors: [
-                                                  Color(0xFF3B82F6),
+                                                  Color(0xFF3559C7),
                                                   Color(0xFF6366F1),
                                                 ],
                                                 begin: Alignment
@@ -536,7 +536,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                               letterSpacing: -0.3,
                               color: isDark
                                   ? Colors.white
-                                  : const Color(0xFF0F172A),
+                                  : const Color(0xFF18202E),
                             ),
                           ),
                         ],
@@ -757,7 +757,7 @@ class _ModernCategoryRow extends StatelessWidget {
     final completed = category['completed'] as int;
     final percentage = total > 0 ? (completed / total * 100).round() : 0;
     final catColors = {
-      'Work': const Color(0xFF3B82F6),
+      'Work': const Color(0xFF3559C7),
       'Personal': const Color(0xFF8B5CF6),
       'Health': const Color(0xFF10B981),
       'Study': const Color(0xFFF59E0B),
@@ -822,7 +822,7 @@ class _ModernCategoryRow extends StatelessWidget {
                       fontSize: 15,
                       color: isDark
                           ? Colors.white
-                          : const Color(0xFF0F172A),
+                          : const Color(0xFF18202E),
                     ),
                   ),
                 ],

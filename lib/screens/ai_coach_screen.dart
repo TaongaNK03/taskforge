@@ -19,7 +19,7 @@ class AiCoachScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor:
-          isDark ? const Color(0xFF090D16) : const Color(0xFFF8FAFC),
+          isDark ? const Color(0xFF10141D) : const Color(0xFFF5F6F8),
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -30,7 +30,7 @@ class AiCoachScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: isDark
-                      ? [const Color(0xFF1A1040), const Color(0xFF090D16)]
+                      ? [const Color(0xFF1A1040), const Color(0xFF10141D)]
                       : [const Color(0xFF6366F1), const Color(0xFF8B5CF6)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -166,7 +166,7 @@ class AiCoachScreen extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF3B82F6)
+                      color: const Color(0xFF3559C7)
                           .withValues(alpha: isDark ? 0.15 : 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -174,7 +174,7 @@ class AiCoachScreen extends StatelessWidget {
                         size: 20,
                         color: isDark
                             ? const Color(0xFF60A5FA)
-                            : const Color(0xFF2563EB)),
+                            : const Color(0xFF3559C7)),
                   ),
                   const SizedBox(width: 12),
                   Text(
@@ -184,7 +184,7 @@ class AiCoachScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                       letterSpacing: -0.3,
                       color:
-                          isDark ? Colors.white : const Color(0xFF0F172A),
+                          isDark ? Colors.white : const Color(0xFF18202E),
                     ),
                   ),
                 ],
@@ -270,7 +270,7 @@ class AiCoachScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                       letterSpacing: -0.3,
                       color:
-                          isDark ? Colors.white : const Color(0xFF0F172A),
+                          isDark ? Colors.white : const Color(0xFF18202E),
                     ),
                   ),
                 ],
@@ -324,7 +324,7 @@ class AiCoachScreen extends StatelessWidget {
         'title': 'Eisenhower Matrix',
         'description':
             'Categorize tasks by urgency and importance: Do urgent+important first, schedule important ones, delegate urgent ones, eliminate the rest.',
-        'gradient': [const Color(0xFF2563EB), const Color(0xFF3B82F6)],
+        'gradient': [const Color(0xFF3559C7), const Color(0xFF3559C7)],
       },
       {
         'icon': Icons.flash_on_rounded,
@@ -484,7 +484,7 @@ class _ModernInsightCard extends StatelessWidget {
                           letterSpacing: -0.2,
                           color: isDark
                               ? Colors.white
-                              : const Color(0xFF0F172A),
+                              : const Color(0xFF18202E),
                         ),
                       ),
                       const SizedBox(height: 6),
@@ -589,7 +589,7 @@ class _ModernTipCard extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                       letterSpacing: -0.2,
                       color:
-                          isDark ? Colors.white : const Color(0xFF0F172A),
+                          isDark ? Colors.white : const Color(0xFF18202E),
                     ),
                   ),
                   const SizedBox(height: 6),

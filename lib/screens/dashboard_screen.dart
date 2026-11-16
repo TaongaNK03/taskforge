@@ -29,12 +29,12 @@ class DashboardScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor:
-          isDark ? const Color(0xFF090D16) : const Color(0xFFF8FAFC),
+          isDark ? const Color(0xFF10141D) : const Color(0xFFF5F6F8),
       body: SafeArea(
         bottom: false,
         child: RefreshIndicator(
           onRefresh: () => provider.refreshTasks(),
-          color: const Color(0xFF3B82F6),
+          color: const Color(0xFF3559C7),
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             padding: const EdgeInsets.fromLTRB(20, 16, 20, 100),
@@ -90,7 +90,7 @@ class DashboardScreen extends StatelessWidget {
                             fontWeight: FontWeight.w800,
                             letterSpacing: -0.5,
                             color:
-                                isDark ? Colors.white : const Color(0xFF0F172A),
+                                isDark ? Colors.white : const Color(0xFF18202E),
                           ),
                         ),
                       ],
@@ -100,7 +100,7 @@ class DashboardScreen extends StatelessWidget {
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         gradient: LinearGradient(
-                          colors: [Color(0xFF3B82F6), Color(0xFF8B5CF6)],
+                          colors: [Color(0xFF3559C7), Color(0xFF8B5CF6)],
                         ),
                       ),
                       child: CircleAvatar(
@@ -112,7 +112,7 @@ class DashboardScreen extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w800,
-                            color: Color(0xFF3B82F6),
+                            color: Color(0xFF3559C7),
                           ),
                         ),
                       ),
@@ -129,7 +129,7 @@ class DashboardScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       colors: [
-                        Color(0xFF2563EB),
+                        Color(0xFF3559C7),
                         Color(0xFF4F46E5),
                         Color(0xFF7C3AED)
                       ],
@@ -273,7 +273,7 @@ class DashboardScreen extends StatelessWidget {
                       icon: Icons.checklist_rounded,
                       label: 'Total Tasks',
                       value: '${stats['total'] ?? 0}',
-                      color: const Color(0xFF3B82F6),
+                      color: const Color(0xFF3559C7),
                       isDark: isDark,
                     ),
                     const SizedBox(width: 10),
@@ -310,7 +310,7 @@ class DashboardScreen extends StatelessWidget {
                             fontWeight: FontWeight.w800,
                             letterSpacing: -0.4,
                             color:
-                                isDark ? Colors.white : const Color(0xFF0F172A),
+                                isDark ? Colors.white : const Color(0xFF18202E),
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -320,7 +320,7 @@ class DashboardScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: isDark
                                 ? const Color(0xFF1E293B)
-                                : const Color(0xFFE2E8F0),
+                                : const Color(0xFFE5E8EE),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(
@@ -342,7 +342,7 @@ class DashboardScreen extends StatelessWidget {
                       label: const Text('Add Task',
                           style: TextStyle(fontWeight: FontWeight.w700)),
                       style: TextButton.styleFrom(
-                        foregroundColor: const Color(0xFF3B82F6),
+                        foregroundColor: const Color(0xFF3559C7),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 6),
                       ),
@@ -362,7 +362,7 @@ class DashboardScreen extends StatelessWidget {
                       border: Border.all(
                         color: isDark
                             ? Colors.white.withValues(alpha: 0.05)
-                            : const Color(0xFFE2E8F0),
+                            : const Color(0xFFE5E8EE),
                       ),
                     ),
                     child: Column(
@@ -371,11 +371,11 @@ class DashboardScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             color:
-                                const Color(0xFF3B82F6).withValues(alpha: 0.1),
+                                const Color(0xFF3559C7).withValues(alpha: 0.1),
                             shape: BoxShape.circle,
                           ),
                           child: const Icon(Icons.check_box_outlined,
-                              size: 36, color: Color(0xFF3B82F6)),
+                              size: 36, color: Color(0xFF3559C7)),
                         ),
                         const SizedBox(height: 14),
                         Text(
@@ -384,7 +384,7 @@ class DashboardScreen extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                             fontSize: 16,
                             color:
-                                isDark ? Colors.white : const Color(0xFF0F172A),
+                                isDark ? Colors.white : const Color(0xFF18202E),
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -416,7 +416,7 @@ class DashboardScreen extends StatelessWidget {
                         fontSize: 18,
                         fontWeight: FontWeight.w800,
                         letterSpacing: -0.4,
-                        color: isDark ? Colors.white : const Color(0xFF0F172A),
+                        color: isDark ? Colors.white : const Color(0xFF18202E),
                       ),
                     ),
                   ],
@@ -435,7 +435,7 @@ class DashboardScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: const Color(0xFF3B82F6),
+        backgroundColor: const Color(0xFF3559C7),
         foregroundColor: Colors.white,
         elevation: 6,
         onPressed: () => _showAddTaskDialog(context),
@@ -484,7 +484,7 @@ class _MetricPill extends StatelessWidget {
           border: Border.all(
             color: isDark
                 ? Colors.white.withValues(alpha: 0.05)
-                : const Color(0xFFE2E8F0),
+                : const Color(0xFFE5E8EE),
           ),
         ),
         child: Column(
@@ -523,7 +523,7 @@ class _MetricPill extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
-                color: isDark ? Colors.white : const Color(0xFF0F172A),
+                color: isDark ? Colors.white : const Color(0xFF18202E),
               ),
             ),
           ],
@@ -546,7 +546,7 @@ class _ModernTaskItem extends StatelessWidget {
       case 2:
         return const Color(0xFFF97316); // High
       case 1:
-        return const Color(0xFF3B82F6); // Medium
+        return const Color(0xFF3559C7); // Medium
       default:
         return const Color(0xFF64748B); // Low
     }
@@ -564,7 +564,7 @@ class _ModernTaskItem extends StatelessWidget {
               ? Colors.transparent
               : (isDark
                   ? Colors.white.withValues(alpha: 0.06)
-                  : const Color(0xFFE2E8F0)),
+                  : const Color(0xFFE5E8EE)),
         ),
         boxShadow: isDark
             ? []
@@ -628,7 +628,7 @@ class _ModernTaskItem extends StatelessWidget {
                                   : const Color(0xFF94A3B8))
                               : (isDark
                                   ? Colors.white
-                                  : const Color(0xFF0F172A)),
+                                  : const Color(0xFF18202E)),
                         ),
                       ),
                       if (task.description != null &&
@@ -684,7 +684,7 @@ class _ModernInsightBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = insight['color'] as Color? ?? const Color(0xFF3B82F6);
+    final color = insight['color'] as Color? ?? const Color(0xFF3559C7);
 
     return Container(
       padding: const EdgeInsets.all(18),
@@ -724,7 +724,7 @@ class _ModernInsightBanner extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
-                    color: isDark ? Colors.white : const Color(0xFF0F172A),
+                    color: isDark ? Colors.white : const Color(0xFF18202E),
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -770,7 +770,7 @@ class _AddTaskSheetState extends State<_AddTaskSheet> {
     },
     {
       'label': 'Medium',
-      'color': Color(0xFF3B82F6),
+      'color': Color(0xFF3559C7),
       'icon': Icons.remove_rounded
     },
     {
@@ -830,7 +830,7 @@ class _AddTaskSheetState extends State<_AddTaskSheet> {
                 fontSize: 22,
                 fontWeight: FontWeight.w800,
                 letterSpacing: -0.5,
-                color: isDark ? Colors.white : const Color(0xFF0F172A),
+                color: isDark ? Colors.white : const Color(0xFF18202E),
               ),
             ),
             const SizedBox(height: 18),
@@ -841,7 +841,7 @@ class _AddTaskSheetState extends State<_AddTaskSheet> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: isDark ? Colors.white : const Color(0xFF0F172A),
+                color: isDark ? Colors.white : const Color(0xFF18202E),
               ),
               decoration: InputDecoration(
                 hintText: 'What needs to be done?',
@@ -868,7 +868,7 @@ class _AddTaskSheetState extends State<_AddTaskSheet> {
               maxLines: 2,
               style: TextStyle(
                 fontSize: 14,
-                color: isDark ? Colors.white : const Color(0xFF0F172A),
+                color: isDark ? Colors.white : const Color(0xFF18202E),
               ),
               decoration: InputDecoration(
                 hintText: 'Add description, notes, or subtasks...',
@@ -907,7 +907,7 @@ class _AddTaskSheetState extends State<_AddTaskSheet> {
                       label: Text(cat),
                       selected: isSelected,
                       onSelected: (_) => setState(() => _category = cat),
-                      selectedColor: const Color(0xFF3B82F6),
+                      selectedColor: const Color(0xFF3559C7),
                       labelStyle: TextStyle(
                         color: isSelected
                             ? Colors.white
@@ -1018,7 +1018,7 @@ class _AddTaskSheetState extends State<_AddTaskSheet> {
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF3B82F6),
+                  backgroundColor: const Color(0xFF3559C7),
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16)),

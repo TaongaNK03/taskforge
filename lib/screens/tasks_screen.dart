@@ -31,7 +31,7 @@ class _TasksScreenState extends State<TasksScreen> {
 
     return Scaffold(
       backgroundColor:
-          isDark ? const Color(0xFF090D16) : const Color(0xFFF8FAFC),
+          isDark ? const Color(0xFF10141D) : const Color(0xFFF5F6F8),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -41,7 +41,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 autofocus: true,
                 style: TextStyle(
                   fontSize: 16,
-                  color: isDark ? Colors.white : const Color(0xFF0F172A),
+                  color: isDark ? Colors.white : const Color(0xFF18202E),
                 ),
                 decoration: InputDecoration(
                   hintText: 'Search by title or keyword...',
@@ -65,7 +65,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   fontWeight: FontWeight.w800,
                   fontSize: 26,
                   letterSpacing: -0.6,
-                  color: isDark ? Colors.white : const Color(0xFF0F172A),
+                  color: isDark ? Colors.white : const Color(0xFF18202E),
                 ),
               ),
         actions: [
@@ -112,7 +112,7 @@ class _TasksScreenState extends State<TasksScreen> {
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 color:
-                    isDark ? const Color(0xFF131B2E) : const Color(0xFFE2E8F0),
+                    isDark ? const Color(0xFF131B2E) : const Color(0xFFE5E8EE),
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Row(
@@ -152,13 +152,13 @@ class _TasksScreenState extends State<TasksScreen> {
                   label: 'All Categories',
                   isSelected: provider.selectedCategory == 'All',
                   onTap: () => provider.setCategory('All'),
-                  color: const Color(0xFF3B82F6),
+                  color: const Color(0xFF3559C7),
                   isDark: isDark,
                 ),
                 ...['Work', 'Personal', 'Health', 'Study', 'General']
                     .map((cat) {
                   final colors = {
-                    'Work': const Color(0xFF3B82F6),
+                    'Work': const Color(0xFF3559C7),
                     'Personal': const Color(0xFF8B5CF6),
                     'Health': const Color(0xFF10B981),
                     'Study': const Color(0xFFF59E0B),
@@ -170,7 +170,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       label: cat,
                       isSelected: provider.selectedCategory == cat,
                       onTap: () => provider.setCategory(cat),
-                      color: colors[cat] ?? const Color(0xFF3B82F6),
+                      color: colors[cat] ?? const Color(0xFF3559C7),
                       isDark: isDark,
                     ),
                   );
@@ -192,7 +192,7 @@ class _TasksScreenState extends State<TasksScreen> {
                           padding: const EdgeInsets.all(22),
                           decoration: BoxDecoration(
                             color:
-                                const Color(0xFF3B82F6).withValues(alpha: 0.1),
+                                const Color(0xFF3559C7).withValues(alpha: 0.1),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
@@ -200,7 +200,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                 ? Icons.search_off_rounded
                                 : Icons.inbox_rounded,
                             size: 48,
-                            color: const Color(0xFF3B82F6),
+                            color: const Color(0xFF3559C7),
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -212,7 +212,7 @@ class _TasksScreenState extends State<TasksScreen> {
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                             color:
-                                isDark ? Colors.white : const Color(0xFF0F172A),
+                                isDark ? Colors.white : const Color(0xFF18202E),
                           ),
                         ),
                         const SizedBox(height: 6),
@@ -246,7 +246,7 @@ class _TasksScreenState extends State<TasksScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: const Color(0xFF3B82F6),
+        backgroundColor: const Color(0xFF3559C7),
         foregroundColor: Colors.white,
         elevation: 6,
         onPressed: () => _showAddTaskSheet(context),
@@ -276,7 +276,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 : Icons.radio_button_unchecked,
             size: 18,
             color: isSelected
-                ? const Color(0xFF3B82F6)
+                ? const Color(0xFF3559C7)
                 : (isDark ? Colors.white38 : Colors.grey),
           ),
           const SizedBox(width: 10),
@@ -284,7 +284,7 @@ class _TasksScreenState extends State<TasksScreen> {
             label,
             style: TextStyle(
               fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-              color: isDark ? Colors.white : const Color(0xFF0F172A),
+              color: isDark ? Colors.white : const Color(0xFF18202E),
             ),
           ),
         ],
@@ -308,7 +308,7 @@ class _TasksScreenState extends State<TasksScreen> {
       },
       {
         'label': 'Medium',
-        'color': Color(0xFF3B82F6),
+        'color': Color(0xFF3559C7),
         'icon': Icons.remove_rounded
       },
       {
@@ -367,7 +367,7 @@ class _TasksScreenState extends State<TasksScreen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w800,
                         letterSpacing: -0.5,
-                        color: isDark ? Colors.white : const Color(0xFF0F172A),
+                        color: isDark ? Colors.white : const Color(0xFF18202E),
                       ),
                     ),
                     const SizedBox(height: 18),
@@ -377,7 +377,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: isDark ? Colors.white : const Color(0xFF0F172A),
+                        color: isDark ? Colors.white : const Color(0xFF18202E),
                       ),
                       decoration: InputDecoration(
                         hintText: 'What needs to be done?',
@@ -402,7 +402,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       maxLines: 2,
                       style: TextStyle(
                         fontSize: 14,
-                        color: isDark ? Colors.white : const Color(0xFF0F172A),
+                        color: isDark ? Colors.white : const Color(0xFF18202E),
                       ),
                       decoration: InputDecoration(
                         hintText: 'Description or notes...',
@@ -444,7 +444,7 @@ class _TasksScreenState extends State<TasksScreen> {
                               selected: isSelected,
                               onSelected: (_) =>
                                   setSheetState(() => category = cat),
-                              selectedColor: const Color(0xFF3B82F6),
+                              selectedColor: const Color(0xFF3559C7),
                               labelStyle: TextStyle(
                                 color: isSelected
                                     ? Colors.white
@@ -563,7 +563,7 @@ class _TasksScreenState extends State<TasksScreen> {
                           Navigator.pop(context);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF3B82F6),
+                          backgroundColor: const Color(0xFF3559C7),
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16)),
@@ -601,7 +601,7 @@ class _TasksScreenState extends State<TasksScreen> {
       },
       {
         'label': 'Medium',
-        'color': Color(0xFF3B82F6),
+        'color': Color(0xFF3559C7),
         'icon': Icons.remove_rounded
       },
       {
@@ -660,7 +660,7 @@ class _TasksScreenState extends State<TasksScreen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w800,
                         letterSpacing: -0.5,
-                        color: isDark ? Colors.white : const Color(0xFF0F172A),
+                        color: isDark ? Colors.white : const Color(0xFF18202E),
                       ),
                     ),
                     const SizedBox(height: 18),
@@ -669,7 +669,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: isDark ? Colors.white : const Color(0xFF0F172A),
+                        color: isDark ? Colors.white : const Color(0xFF18202E),
                       ),
                       decoration: InputDecoration(
                         filled: true,
@@ -690,7 +690,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       maxLines: 2,
                       style: TextStyle(
                         fontSize: 14,
-                        color: isDark ? Colors.white : const Color(0xFF0F172A),
+                        color: isDark ? Colors.white : const Color(0xFF18202E),
                       ),
                       decoration: InputDecoration(
                         filled: true,
@@ -728,7 +728,7 @@ class _TasksScreenState extends State<TasksScreen> {
                               selected: isSelected,
                               onSelected: (_) =>
                                   setSheetState(() => category = cat),
-                              selectedColor: const Color(0xFF3B82F6),
+                              selectedColor: const Color(0xFF3559C7),
                               labelStyle: TextStyle(
                                 color: isSelected
                                     ? Colors.white
@@ -858,7 +858,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                 Navigator.pop(context);
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF3B82F6),
+                                backgroundColor: const Color(0xFF3559C7),
                                 foregroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16)),
@@ -927,7 +927,7 @@ class _StatusSegment extends StatelessWidget {
               fontSize: 12,
               fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
               color: isSelected
-                  ? (isDark ? Colors.white : const Color(0xFF0F172A))
+                  ? (isDark ? Colors.white : const Color(0xFF18202E))
                   : (isDark ? Colors.white38 : const Color(0xFF64748B)),
             ),
           ),
@@ -969,7 +969,7 @@ class _CategoryFilterChip extends StatelessWidget {
                 ? color
                 : (isDark
                     ? Colors.white.withValues(alpha: 0.08)
-                    : const Color(0xFFE2E8F0)),
+                    : const Color(0xFFE5E8EE)),
           ),
         ),
         child: Row(
@@ -1018,7 +1018,7 @@ class _InteractiveTaskCard extends StatelessWidget {
       case 2:
         return const Color(0xFFF97316);
       case 1:
-        return const Color(0xFF3B82F6);
+        return const Color(0xFF3559C7);
       default:
         return const Color(0xFF64748B);
     }
@@ -1051,7 +1051,7 @@ class _InteractiveTaskCard extends StatelessWidget {
                 ? Colors.transparent
                 : (isDark
                     ? Colors.white.withValues(alpha: 0.06)
-                    : const Color(0xFFE2E8F0)),
+                    : const Color(0xFFE5E8EE)),
           ),
           boxShadow: isDark
               ? []
@@ -1119,7 +1119,7 @@ class _InteractiveTaskCard extends StatelessWidget {
                                     : const Color(0xFF94A3B8))
                                 : (isDark
                                     ? Colors.white
-                                    : const Color(0xFF0F172A)),
+                                    : const Color(0xFF18202E)),
                           ),
                         ),
                         if (task.description != null &&
