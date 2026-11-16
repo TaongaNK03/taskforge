@@ -1,0 +1,46 @@
+name: taskforge
+description: AI Productivity Coach
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # Fonts
+  google_fonts: ^6.2.1
+
+  # Animations
+  flutter_animate: ^4.5.0
+  animations: ^2.0.11
+
+  # Charts (Analytics Screen)
+  fl_chart: ^1.0.0
+
+  # Database - SQLite (fast, reliable, offline-first)
+  sqflite: ^2.3.3+2
+  sqflite_common_ffi: ^2.3.3
+  path_provider: ^2.1.4
+  path: ^1.9.0
+
+  # State Management
+  provider: ^6.1.2
+
+  # Utilities
+  intl: ^0.19.0
+  uuid: ^4.5.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
