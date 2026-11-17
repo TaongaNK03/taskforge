@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -295,6 +296,21 @@ class DashboardScreen extends StatelessWidget {
                   ],
                 ),
 
+                const SizedBox(height: 20),
+
+                // A gentle, optional focus session helps turn plans into action.
+                _FocusSessionCard(
+                  onTap: () => showDialog<void>(
+                    context: context,
+                    builder: (_) => _FocusSessionDialog(
+                      tasks: provider.allTasks
+                          .where((task) => !task.isCompleted)
+                          .toList(),
+                    ),
+                  ),
+                  isDark: isDark,
+                ),
+
                 const SizedBox(height: 28),
 
                 // Today's Tasks Section Header
@@ -454,6 +470,202 @@ class DashboardScreen extends StatelessWidget {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (ctx) => const _AddTaskSheet(),
+    );
+  }
+}
+
+class _FocusSessionCard extends StatelessWidget {
+  final VoidCallback onTap;
+  final bool isDark;
+
+  const _FocusSessionCard({required this.onTap, required this.isDark});
+
+  @override
+  Widget build(BuildContext context) {
+    final foreground = isDark ? Colors.white : const Color(0xFF18202E);
+    return Material(
+      color: isDark ? const Color(0xFF171D29) : Colors.white,
+      borderRadius: BorderRadius.circular(18),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(18),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(
+                color:
+                    isDark ? const Color(0xFF293141) : const Color(0xFFE5E8EE)),
+          ),
+          child: Row(children: [
+            Container(
+              width: 46,
+              height: 46,
+              decoration: BoxDecoration(
+                  color: const Color(0xFF3559C7).withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(14)),
+              child: const Icon(Icons.timer_outlined, color: Color(0xFF3559C7)),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                  Text('Make space to focus',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          color: foreground,
+                          fontSize: 15)),
+                  const SizedBox(height: 3),
+                  Text('A calm 25-minute session, with a break after.',
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: isDark
+                              ? Colors.white60
+                              : const Color(0xFF667085))),
+                ])),
+            const Icon(Icons.arrow_forward_ios_rounded,
+                size: 15, color: Color(0xFF3559C7)),
+          ]),
+        ),
+      ),
+    );
+  }
+}
+
+class _FocusSessionDialog extends StatefulWidget {
+  final List<Task> tasks;
+  const _FocusSessionDialog({required this.tasks});
+
+  @override
+  State<_FocusSessionDialog> createState() => _FocusSessionDialogState();
+}
+
+class _FocusSessionDialogState extends State<_FocusSessionDialog> {
+  static const _sessionLength = 25 * 60;
+  late int _secondsLeft = _sessionLength;
+  String? _selectedTaskId;
+  Timer? _timer;
+  bool _isRunning = false;
+  bool _isComplete = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.tasks.isNotEmpty) _selectedTaskId = widget.tasks.first.id;
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _toggleTimer() {
+    if (_isRunning) {
+      _timer?.cancel();
+      setState(() => _isRunning = false);
+      return;
+    }
+    setState(() => _isRunning = true);
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_secondsLeft <= 1) {
+        timer.cancel();
+        setState(() {
+          _secondsLeft = 0;
+          _isRunning = false;
+          _isComplete = true;
+        });
+      } else {
+        setState(() => _secondsLeft--);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Task? task;
+    for (final item in widget.tasks) {
+      if (item.id == _selectedTaskId) {
+        task = item;
+        break;
+      }
+    }
+    final minutes = (_secondsLeft ~/ 60).toString().padLeft(2, '0');
+    final seconds = (_secondsLeft % 60).toString().padLeft(2, '0');
+    final color = Theme.of(context).colorScheme.primary;
+
+    return AlertDialog(
+      title: Text(_isComplete ? 'Session complete' : 'Focus session'),
+      content: SizedBox(
+        width: 360,
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          if (!_isRunning && !_isComplete) ...[
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Choose one thing to work on',
+                    style: Theme.of(context).textTheme.bodyMedium)),
+            const SizedBox(height: 10),
+            DropdownButtonFormField<String?>(
+              value: _selectedTaskId,
+              isExpanded: true,
+              decoration: const InputDecoration(labelText: 'Focus'),
+              items: [
+                const DropdownMenuItem<String?>(
+                    value: null, child: Text('Open focus time')),
+                ...widget.tasks.map((item) => DropdownMenuItem<String?>(
+                    value: item.id,
+                    child: Text(item.title, overflow: TextOverflow.ellipsis))),
+              ],
+              onChanged: (value) => setState(() => _selectedTaskId = value),
+            ),
+            const SizedBox(height: 12),
+          ],
+          const SizedBox(height: 10),
+          SizedBox(
+            width: 148,
+            height: 148,
+            child: Stack(alignment: Alignment.center, children: [
+              SizedBox.expand(
+                  child: CircularProgressIndicator(
+                      value:
+                          _isComplete ? 1 : 1 - _secondsLeft / _sessionLength,
+                      strokeWidth: 7,
+                      backgroundColor: color.withValues(alpha: 0.12))),
+              Column(mainAxisSize: MainAxisSize.min, children: [
+                Text(_isComplete ? '25:00' : '$minutes:$seconds',
+                    style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w800,
+                        color: color)),
+                Text(_isComplete ? 'Nice work' : 'of 25 minutes',
+                    style: Theme.of(context).textTheme.bodySmall),
+              ]),
+            ]),
+          ),
+          const SizedBox(height: 16),
+          Text(
+              _isComplete
+                  ? 'Take a short break before your next session.'
+                  : (task?.title ??
+                      'Give one meaningful thing your attention.'),
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium),
+        ]),
+      ),
+      actions: [
+        TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(_isComplete ? 'Done' : 'Close')),
+        if (!_isComplete)
+          FilledButton(
+              onPressed: _toggleTimer,
+              child: Text(_isRunning
+                  ? 'Pause'
+                  : (_secondsLeft == _sessionLength
+                      ? 'Start session'
+                      : 'Resume'))),
+      ],
     );
   }
 }
