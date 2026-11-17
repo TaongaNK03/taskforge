@@ -4,7 +4,7 @@ TaskForge is an offline-first task manager and productivity dashboard built with
 
 ## Run locally
 
-Install the Flutter stable SDK, then run these commands from the project directory:
+Install Flutter 3.44 or newer, then run these commands from the project directory:
 
 ```sh
 flutter pub get
@@ -27,6 +27,12 @@ The workflow at `.github/workflows/deploy.yml` builds the Flutter web app and pu
 4. When the workflow finishes, open the Pages URL shown in the workflow summary.
 
 The workflow sets the repository subpath as Flutter's base URL, which supports standard project Pages URLs. For another static host, run `flutter build web --release --base-href /` and publish the contents of `build/web` to the host's web root. For a subdirectory, set `--base-href` to that directory including leading and trailing slashes.
+
+## Due-date reminders
+
+Enable **Profile → Notifications** and allow notifications when prompted. On iPhone, install the site using **Safari → Share → Add to Home Screen**; web notifications require iOS/iPadOS 16.4 or newer and a Home Screen web app. The GitHub Pages version can show a due reminder while TaskForge is open. Browsers cannot schedule a reminder for later while the site is closed. Native iOS builds schedule local reminders for 9:00 a.m. on the due date. A server-backed web push service is needed for reliable reminders while the GitHub Pages app is closed.
+
+Past due dates are blocked in the task calendar and rejected by the task provider. Existing saved tasks are preserved; reminder de-duplication is stored separately from the task database.
 
 ## Native builds
 

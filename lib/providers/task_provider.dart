@@ -3,6 +3,7 @@ import 'package:uuid/uuid.dart';
 import '../models/task.dart';
 import '../models/user_profile.dart';
 import '../services/database_service.dart';
+import '../services/reminder_service.dart';
 
 /// TaskProvider — central state management for the entire app.
 ///
@@ -134,7 +135,19 @@ class TaskProvider extends ChangeNotifier {
     _overallStats = await _db.getOverallStats();
     _todayProductivity = await _db.getTodayProductivity();
     _streak = await _db.getCompletionStreak();
+    await _syncReminders();
     notifyListeners();
+  }
+
+  Future<void> _syncReminders() async {
+    try {
+      await ReminderService.instance.syncTasks(
+        tasks: _allTasks,
+        enabled: _userProfile?.notificationsEnabled ?? false,
+      );
+    } catch (error) {
+      debugPrint('TaskForge: reminder update failed ($error).');
+    }
   }
 
   // ─── Task CRUD ─────────────────────────────────────────────────────
@@ -148,6 +161,12 @@ class TaskProvider extends ChangeNotifier {
     DateTime? dueDate,
     String? parentId,
   }) async {
+    if (dueDate != null &&
+        DateUtils.dateOnly(dueDate)
+            .isBefore(DateUtils.dateOnly(DateTime.now()))) {
+      throw ArgumentError.value(
+          dueDate, 'dueDate', 'Due date cannot be in the past.');
+    }
     final task = Task(
       id: _uuid.v4(),
       title: title,
@@ -209,6 +228,7 @@ class TaskProvider extends ChangeNotifier {
   Future<void> updateProfile(UserProfile profile) async {
     await _db.saveUserProfile(profile);
     _userProfile = profile;
+    await _syncReminders();
     notifyListeners();
   }
 
@@ -303,8 +323,7 @@ class TaskProvider extends ChangeNotifier {
     // Category distribution
     final categoryCount = <String, int>{};
     for (final task in _allTasks) {
-      categoryCount[task.category] =
-          (categoryCount[task.category] ?? 0) + 1;
+      categoryCount[task.category] = (categoryCount[task.category] ?? 0) + 1;
     }
     if (categoryCount.isNotEmpty) {
       final topCategory =

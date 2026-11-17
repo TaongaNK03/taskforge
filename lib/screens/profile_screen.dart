@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/task_provider.dart';
 import '../models/user_profile.dart';
+import '../services/reminder_service.dart';
 
 /// Profile Screen — user settings, stats overview, and app preferences.
 class ProfileScreen extends StatelessWidget {
@@ -26,8 +27,7 @@ class ProfileScreen extends StatelessWidget {
             child: CircularProgressIndicator(
               strokeWidth: 3,
               valueColor: const AlwaysStoppedAnimation(Color(0xFF3559C7)),
-              backgroundColor:
-                  const Color(0xFF3559C7).withValues(alpha: 0.15),
+              backgroundColor: const Color(0xFF3559C7).withValues(alpha: 0.15),
             ),
           ),
         ),
@@ -74,8 +74,8 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF8B5CF6)
-                                .withValues(alpha: 0.45),
+                            color:
+                                const Color(0xFF8B5CF6).withValues(alpha: 0.45),
                             blurRadius: 24,
                             offset: const Offset(0, 10),
                           ),
@@ -192,8 +192,7 @@ class ProfileScreen extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                       letterSpacing: -0.3,
-                      color:
-                          isDark ? Colors.white : const Color(0xFF18202E),
+                      color: isDark ? Colors.white : const Color(0xFF18202E),
                     ),
                   ),
                 ],
@@ -271,11 +270,26 @@ class ProfileScreen extends StatelessWidget {
                     icon: Icons.notifications_outlined,
                     iconColor: const Color(0xFFEF4444),
                     title: 'Notifications',
+                    subtitle: 'Remind me about tasks due today',
                     value: profile.notificationsEnabled,
                     isDark: isDark,
-                    onChanged: (val) {
-                      provider.updateProfile(
-                        profile.copyWith(notificationsEnabled: val),
+                    onChanged: (val) async {
+                      var enabled = val;
+                      if (val) {
+                        enabled =
+                            await ReminderService.instance.requestPermission();
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(enabled
+                                  ? 'Task due-date reminders are enabled.'
+                                  : 'Allow notifications in your browser or device settings to receive reminders.'),
+                            ),
+                          );
+                        }
+                      }
+                      await provider.updateProfile(
+                        profile.copyWith(notificationsEnabled: enabled),
                       );
                     },
                   ),
@@ -635,8 +649,7 @@ class ProfileScreen extends StatelessWidget {
                     width: 40,
                     height: 4,
                     decoration: BoxDecoration(
-                      color:
-                          isDark ? Colors.white24 : const Color(0xFFE5E8EE),
+                      color: isDark ? Colors.white24 : const Color(0xFFE5E8EE),
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -646,8 +659,7 @@ class ProfileScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color:
-                          isDark ? Colors.white : const Color(0xFF18202E),
+                      color: isDark ? Colors.white : const Color(0xFF18202E),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -655,9 +667,7 @@ class ProfileScreen extends StatelessWidget {
                     'How many tasks per day?',
                     style: TextStyle(
                       fontSize: 14,
-                      color: isDark
-                          ? Colors.white38
-                          : const Color(0xFF94A3B8),
+                      color: isDark ? Colors.white38 : const Color(0xFF94A3B8),
                     ),
                   ),
                   const SizedBox(height: 28),
@@ -667,8 +677,9 @@ class ProfileScreen extends StatelessWidget {
                       _GoalButton(
                         icon: Icons.remove_rounded,
                         isDark: isDark,
-                        onTap:
-                            goal > 1 ? () => setDialogState(() => goal--) : null,
+                        onTap: goal > 1
+                            ? () => setDialogState(() => goal--)
+                            : null,
                       ),
                       const SizedBox(width: 24),
                       Container(
@@ -822,8 +833,8 @@ class ProfileScreen extends StatelessWidget {
                     elevation: 0,
                   ),
                   child: const Text('Got it',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 16)),
+                      style:
+                          TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
                 ),
               ),
             ],
@@ -880,16 +891,13 @@ class _ModernSettingsCard extends StatelessWidget {
   final bool isDark;
   final List<Widget> children;
 
-  const _ModernSettingsCard(
-      {required this.isDark, required this.children});
+  const _ModernSettingsCard({required this.isDark, required this.children});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: isDark
-            ? Colors.white.withValues(alpha: 0.04)
-            : Colors.white,
+        color: isDark ? Colors.white.withValues(alpha: 0.04) : Colors.white,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: isDark
@@ -936,8 +944,7 @@ class _ModernSettingsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       leading: Container(
         width: 40,
         height: 40,
@@ -988,6 +995,7 @@ class _ModernSwitchTile extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
   final String title;
+  final String subtitle;
   final bool value;
   final bool isDark;
   final ValueChanged<bool> onChanged;
@@ -996,6 +1004,7 @@ class _ModernSwitchTile extends StatelessWidget {
     required this.icon,
     required this.iconColor,
     required this.title,
+    required this.subtitle,
     required this.value,
     required this.isDark,
     required this.onChanged,
@@ -1004,8 +1013,7 @@ class _ModernSwitchTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       leading: Container(
         width: 40,
         height: 40,
@@ -1023,13 +1031,20 @@ class _ModernSwitchTile extends StatelessWidget {
           color: isDark ? Colors.white : const Color(0xFF18202E),
         ),
       ),
+      subtitle: Text(
+        subtitle,
+        style: TextStyle(
+          fontSize: 12,
+          color: isDark ? Colors.white54 : const Color(0xFF667085),
+        ),
+      ),
       trailing: Switch.adaptive(
         value: value,
         onChanged: onChanged,
         activeColor: const Color(0xFF3559C7),
-        activeTrackColor:
-            const Color(0xFF3559C7).withValues(alpha: 0.3),
+        activeTrackColor: const Color(0xFF3559C7).withValues(alpha: 0.3),
       ),
+      onTap: () => onChanged(true),
     );
   }
 }
@@ -1056,8 +1071,7 @@ class _GoalButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: isDark
               ? Colors.white.withValues(alpha: enabled ? 0.08 : 0.03)
-              : Color.fromRGBO(
-                  241, 245, 249, enabled ? 1.0 : 0.5),
+              : Color.fromRGBO(241, 245, 249, enabled ? 1.0 : 0.5),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isDark

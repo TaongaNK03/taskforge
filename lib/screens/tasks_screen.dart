@@ -529,8 +529,7 @@ class _TasksScreenState extends State<TasksScreen> {
                         final selected = await showDatePicker(
                           context: context,
                           initialDate: dueDate ?? DateTime.now(),
-                          firstDate: DateTime.now()
-                              .subtract(const Duration(days: 365)),
+                          firstDate: DateUtils.dateOnly(DateTime.now()),
                           lastDate:
                               DateTime.now().add(const Duration(days: 3650)),
                         );

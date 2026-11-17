@@ -1200,7 +1200,7 @@ class _AddTaskSheetState extends State<_AddTaskSheet> {
                 final selected = await showDatePicker(
                   context: context,
                   initialDate: _dueDate ?? DateTime.now(),
-                  firstDate: DateTime.now().subtract(const Duration(days: 365)),
+                  firstDate: DateUtils.dateOnly(DateTime.now()),
                   lastDate: DateTime.now().add(const Duration(days: 3650)),
                 );
                 if (selected != null) setState(() => _dueDate = selected);

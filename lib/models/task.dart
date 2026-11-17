@@ -118,6 +118,9 @@ class Task {
   /// Whether this task is overdue.
   bool get isOverdue {
     if (dueDate == null || isCompleted) return false;
-    return DateTime.now().isAfter(dueDate!);
+    final today = DateTime.now();
+    final dueDay = DateTime(dueDate!.year, dueDate!.month, dueDate!.day);
+    final todayStart = DateTime(today.year, today.month, today.day);
+    return dueDay.isBefore(todayStart);
   }
 }

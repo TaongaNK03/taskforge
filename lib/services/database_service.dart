@@ -440,15 +440,19 @@ class DatabaseService {
   }
 
   Future<Map<String, int>> getOverallStats() async {
+    final now = DateTime.now();
+    final startOfToday = DateTime(now.year, now.month, now.day);
     final db = await database;
     if (db == null) {
       final topTasks = _fallbackTasks.where((t) => t.parentId == null).toList();
       final total = topTasks.length;
       final completed = topTasks.where((t) => t.isCompleted).length;
-      final now = DateTime.now();
       final overdue = topTasks
           .where((t) =>
-              !t.isCompleted && t.dueDate != null && t.dueDate!.isBefore(now))
+              !t.isCompleted &&
+              t.dueDate != null &&
+              DateTime(t.dueDate!.year, t.dueDate!.month, t.dueDate!.day)
+                  .isBefore(startOfToday))
           .length;
 
       return {
@@ -469,7 +473,7 @@ class DatabaseService {
     final overdue = Sqflite.firstIntValue(
           await db.rawQuery(
             'SELECT COUNT(*) FROM tasks WHERE is_completed = 0 AND due_date IS NOT NULL AND due_date < ? AND parent_id IS NULL',
-            [DateTime.now().millisecondsSinceEpoch],
+            [startOfToday.millisecondsSinceEpoch],
           ),
         ) ??
         0;

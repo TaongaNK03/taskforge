@@ -20,7 +20,7 @@ class UserProfile {
     this.dailyGoal = 5,
     this.preferredStartTime = '08:00',
     this.preferredEndTime = '17:00',
-    this.notificationsEnabled = true,
+    this.notificationsEnabled = false,
     this.themeMode = 'system',
   });
 
@@ -34,7 +34,7 @@ class UserProfile {
       dailyGoal: map['daily_goal'] as int? ?? 5,
       preferredStartTime: map['preferred_start_time'] as String? ?? '08:00',
       preferredEndTime: map['preferred_end_time'] as String? ?? '17:00',
-      notificationsEnabled: (map['notifications_enabled'] as int? ?? 1) == 1,
+      notificationsEnabled: (map['notifications_enabled'] as int? ?? 0) == 1,
       themeMode: map['theme_mode'] as String? ?? 'system',
     );
   }
